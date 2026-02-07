@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contador Hasta Graduación</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #1e1e1e; /* fondo oscuro */
+      color: #ffd700; /* dorado */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-transform: uppercase; /* título en mayúscula */
+      color: #ffd700; /* dorado */
+    }
+    .contador {
+      font-size: 2em;
+      color: #ffd700; /* dorado */
+      text-transform: uppercase; /* todo en mayúscula */
+    }
+  </style>
+</head>
+<body>
+  <h1>¡Faltan días para salir de la escuela!</h1>
+  <div class="contador" id="contador">
+    Cargando...
+  </div>
+
+  <script>
+    // Fecha de graduación
+    const graduacion = new Date("May 22, 2026 00:00:00").getTime();
+
+    function actualizarContador() {
+      const ahora = new Date().getTime();
+      const diferencia = graduacion - ahora;
+
+      if(diferencia < 0){
+        document.getElementById("contador").innerHTML = "¡GRADUADOS!";
+        return;
+      }
+
+      // Cálculos de tiempo
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+      const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+      const centesimas = Math.floor((diferencia % 1000) / 10);
+
+      document.getElementById("contador").innerHTML =
+        dias + "D " + horas + "H " + minutos + "M " + segundos + "S " + centesimas + "CS";
+    }
+
+    setInterval(actualizarContador, 10); // actualiza cada 10ms
+  </script>
+</body>
+</html>
